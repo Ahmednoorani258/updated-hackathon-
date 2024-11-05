@@ -1,0 +1,196 @@
+:root {
+    --primary-color: #135079;
+    --extra-color: #5ef8b0;
+    --secondary-color: #f4f9fc;
+    --text-color: #ffffff;
+    --form-bg-color: #ffffff;
+    --border-radius: 8px;
+    --input-padding: 0.75rem;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #e0e7ff, #e9eeea);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 1.5rem;
+}
+
+.title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+span {
+    color: var(--extra-color);
+}
+
+.cv-form {
+    background-color: var(--form-bg-color);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+fieldset {
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+fieldset div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+legend {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    padding: 0 0.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+label {
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    padding: var(--input-padding);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--extra-color);
+    outline: none;
+    box-shadow: 0 0 5px var(--extra-color);
+}
+
+/* Button Styling */
+.add-btn, .submit-btn, .remove-btn {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-btn, .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.add-btn:hover, .submit-btn:hover {
+    background-color: var(--extra-color);
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+/* Enhanced Styling for Dynamic Sections */
+.cv-form section,
+.dynamic-section {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Flex layout for dynamic fields */
+.dynamic-section > .form-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Remove Button Styling for dynamic sections */
+.remove-btn {
+    background-color: #ff4d4d;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width: 18%;
+}
+
+.remove-btn:hover {
+    background-color: #e60000;
+}
+
+@media (max-width: 768px) {
+    .cv-form {
+        padding: 1.5rem;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    legend {
+        font-size: 1.4rem;
+    }
+
+    input {
+        font-size: 0.9rem;
+    }
+
+    .cv-form section > div,
+    .dynamic-section > .form-group {
+        flex-direction: column;
+    }
+
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .remove-btn {
+        font-size: 0.8rem;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

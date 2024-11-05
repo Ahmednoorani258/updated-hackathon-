@@ -1,86 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Maker | Form</title>
-    <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Maker | Form</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
-    <div class="container">
-        <h1 class="title">CV Maker</h1>
-        <form id="cv-form" class="cv-form" novalidate>
-            <!-- Personal Information Section -->
-            <section id="personal-info-section">
-                <fieldset>
-                    <legend>Personal Information</legend>
-                    <label for="name">Name *</label>
-                    <input type="text" id="name" name="name" autocomplete="off" required>
+  <div class="container">
+    <h1 class="title">GEN <span>5</span> CV Maker</h1>
+    <form id="cv-form" class="cv-form" novalidate>
+      <!-- Personal Information Section -->
+      <section id="personal-info-section">
+        <fieldset>
+          <legend>Personal Information</legend>
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" autocomplete="off" required />
+          </div>
+          <div class="form-group">
+            <label for="designation">Designation *</label>
+            <input type="text" id="designation" name="designation" autocomplete="off" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone *</label>
+            <input type="tel" id="phone" name="phone" autocomplete="off" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" autocomplete="off" required />
+          </div>
+          <div class="form-group">
+            <label for="address">Address *</label>
+            <input type="text" id="address" name="address" autocomplete="off" required />
+          </div>
+        </fieldset>
+      </section>
 
-                    <label for="designation">Designation *</label>
-                    <input type="text" id="designation" name="designation" autocomplete="off" required>
+      <!-- Dynamic Education Section -->
+      <section id="education-section">
+        <fieldset>
+          <legend>Education</legend>
+          <div id="education-container"></div>
+          <button type="button" class="add-btn" onclick="addSection('education')">
+            <i class="fas fa-plus"></i> Add Education
+          </button>
+        </fieldset>
+      </section>
 
-                    <label for="phone">Phone *</label>
-                    <input type="tel" id="phone" name="phone" autocomplete="off" required>
+      <!-- Dynamic Skills Section -->
+      <section id="skills-section">
+        <fieldset>
+          <legend>Skills</legend>
+          <div id="skills-container"></div>
+          <button type="button" class="add-btn" onclick="addSection('skills')">
+            <i class="fas fa-plus"></i> Add Skill
+          </button>
+        </fieldset>
+      </section>
 
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" autocomplete="off" required>
+      <!-- Dynamic Languages Section -->
+      <section id="languages-section">
+        <fieldset>
+          <legend>Languages</legend>
+          <div id="languages-container"></div>
+          <button type="button" class="add-btn" onclick="addSection('languages')">
+            <i class="fas fa-plus"></i> Add Language
+          </button>
+        </fieldset>
+      </section>
 
-                    <label for="address">Address *</label>
-                    <input type="text" id="address" name="address" autocomplete="off" required>
-                </fieldset>
-            </section>
+      <!-- Dynamic Work Experience Section -->
+      <section id="work-experience-section">
+        <fieldset>
+          <legend>Work Experience</legend>
+          <div id="experience-container"></div>
+          <button type="button" class="add-btn" onclick="addSection('experience')">
+            <i class="fas fa-plus"></i> Add Experience
+          </button>
+        </fieldset>
+      </section>
 
-            <!-- Dynamic Education Section -->
-            <section id="education-section">
-                <fieldset>
-                    <legend>Education</legend>
-                    <div id="education-container"></div>
-                    <button type="button" onclick="addSection('education')">
-                        <i class="fas fa-plus"></i> Add Education
-                    </button>
-                </fieldset>
-            </section>
+      <!-- Submit Button -->
+      <button id="submit" type="submit" class="submit-btn">Generate CV</button>
+    </form>
+  </div>
 
-            <!-- Dynamic Skills Section -->
-            <section id="skills-section">
-                <fieldset>
-                    <legend>Skills</legend>
-                    <div id="skills-container"></div>
-                    <button type="button" onclick="addSection('skills')">
-                        <i class="fas fa-plus"></i> Add Skill
-                    </button>
-                </fieldset>
-            </section>
-
-            <!-- Dynamic Languages Section -->
-            <section id="languages-section">
-                <fieldset>
-                    <legend>Languages</legend>
-                    <div id="languages-container"></div>
-                    <button type="button" onclick="addSection('languages')">
-                        <i class="fas fa-plus"></i> Add Language
-                    </button>
-                </fieldset>
-            </section>
-
-            <!-- Dynamic Work Experience Section -->
-            <section id="work-experience-section">
-                <fieldset>
-                    <legend>Work Experience</legend>
-                    <div id="experience-container"></div>
-                    <button type="button" onclick="addSection('experience')">
-                        <i class="fas fa-plus"></i> Add Experience
-                    </button>
-                </fieldset>
-            </section>
-
-            <!-- Submit Button -->
-            <button id="submit" type="submit">Generate CV</button>
-        </form>
-    </div>
-
-    <script src="./form.js" type="module"></script>
+  <script src="./form.js" type="module"></script>
 </body>
 </html>

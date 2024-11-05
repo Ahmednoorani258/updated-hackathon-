@@ -1,4 +1,7 @@
 
+
+
+
 function createLabeledInput(labelText: string, type: string, name: string): HTMLDivElement {
     const container = document.createElement("div");
 
@@ -102,3 +105,91 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+
+//getting data from form
+
+function saveFormDataToLocalStorage() {
+    const formElement = document.getElementById("cv-form") as HTMLFormElement;
+    const formData = new FormData(formElement);
+
+    const data: Record<string, any> = {
+        personalInfo: {},
+        education: [],
+        skills: [],
+        languages: [],
+        experience: []
+    };
+
+    // Get personal information
+    data.personalInfo.name = formData.get("name");
+    data.personalInfo.designation = formData.get("designation");
+    data.personalInfo.phone = formData.get("phone");
+    data.personalInfo.email = formData.get("email");
+    data.personalInfo.address = formData.get("address");
+
+    // Get education data
+    const educationContainer = document.getElementById("education-container");
+    educationContainer?.querySelectorAll("div").forEach((group) => {
+        const educationData: Record<string, string> = {};
+        educationData.passingYear = (group.querySelector("input[name='passingYear']") as HTMLInputElement)?.value;
+        educationData.degree = (group.querySelector("input[name='degree']") as HTMLInputElement)?.value;
+        data.education.push(educationData);
+    });
+
+    // Get skills data
+    const skillsContainer = document.getElementById("skills-container");
+    skillsContainer?.querySelectorAll("input[name='skill']").forEach((input) => {
+        data.skills.push((input as HTMLInputElement).value);
+    });
+
+    // Get languages data
+    const languagesContainer = document.getElementById("languages-container");
+    languagesContainer?.querySelectorAll("input[name='language']").forEach((input) => {
+        data.languages.push((input as HTMLInputElement).value);
+    });
+
+    // Get experience data
+    const experienceContainer = document.getElementById("experience-container");
+    experienceContainer?.querySelectorAll("div").forEach((group) => {
+        const experienceData: Record<string, string> = {};
+        experienceData.startYear = (group.querySelector("input[name='startYear']") as HTMLInputElement)?.value;
+        experienceData.endYear = (group.querySelector("input[name='endYear']") as HTMLInputElement)?.value;
+        experienceData.company = (group.querySelector("input[name='company']") as HTMLInputElement)?.value;
+        experienceData.location = (group.querySelector("input[name='location']") as HTMLInputElement)?.value;
+        experienceData.jobTitle = (group.querySelector("input[name='jobTitle']") as HTMLInputElement)?.value;
+        experienceData.responsibilities = (group.querySelector("input[name='responsibilities']") as HTMLInputElement)?.value;
+        data.experience.push(experienceData);
+    });
+
+    // Save data to local storage
+    localStorage.setItem("cvFormData", JSON.stringify(data));
+    alert("CV data saved to local storage!");
+}
+
+function logFormDataFromLocalStorage() {
+    const storedData = localStorage.getItem("cvFormData");
+    
+    if (storedData) {
+        const data = JSON.parse(storedData);
+        console.log("CV Data:", data);
+    } else {
+        console.log("No CV data found in local storage.");
+    }
+}
+
+
+// Add event listener for form submission
+document.getElementById("cv-form")?.addEventListener("submit", (event: Event) => {
+    event.preventDefault();  // Prevent form submission
+    const form = document.getElementById("cv-form") as HTMLFormElement;
+    if (form.reportValidity()) {
+        // Proceed only if all required fields are filled
+        saveFormDataToLocalStorage();
+        logFormDataFromLocalStorage();
+      } else {
+        console.warn("Please complete all required fields.");
+      }
+});
+
+
