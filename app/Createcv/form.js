@@ -1,156 +1,134 @@
-function createLabeledInput(labelText, type, name) {
-    const container = document.createElement("div");
-    const label = document.createElement("label");
-    label.textContent = labelText;
-    const input = document.createElement("input");
-    input.type = type;
-    input.name = name;
-    input.required = true;
-    container.appendChild(label);
-    container.appendChild(input);
-    return container;
+// Wait for DOM content to be fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+    // Add event listeners to each "Add" button for dynamic sections
+    document.getElementById("addEducation")?.addEventListener("click", () => addEducationField());
+    document.getElementById("addExperience")?.addEventListener("click", () => addExperienceField());
+    document.getElementById("addLanguage")?.addEventListener("click", () => addField("languageFields", "Language"));
+    document.getElementById("addSkill")?.addEventListener("click", () => addField("skillsFields", "Skill"));
+    // Form submission event listener
+    const form = document.getElementById("cvForm");
+    form.addEventListener("submit", (e) => handleFormSubmit(e));
+    displaySavedData();
+});
+// Function to add a new Education field dynamically
+function addEducationField() {
+    const container = document.getElementById("educationFields");
+    const sectionDiv = document.createElement("div");
+    sectionDiv.className = "dynamic-item";
+    sectionDiv.innerHTML = `
+        <label>Degree Name:</label>
+        <input type="text" placeholder="Enter Degree Name" required>
+        <label>Year:</label>
+        <input type="number" placeholder="Enter Year" required>
+        <label>Institute:</label>
+        <input type="text" placeholder="Enter Institute" required>
+        <button type="button" class="remove-button">Remove</button>
+    `;
+    // Attach functionality to the remove button
+    sectionDiv.querySelector(".remove-button")?.addEventListener("click", () => {
+        sectionDiv.remove();
+    });
+    container.appendChild(sectionDiv);
 }
-function createRemoveButton(container) {
-    const removeBtn = document.createElement("button");
-    removeBtn.type = "button";
-    removeBtn.textContent = "Remove";
-    removeBtn.className = "remove-btn";
-    removeBtn.onclick = () => container.remove();
-    return removeBtn;
+// Function to add a new Experience field dynamically
+function addExperienceField() {
+    const container = document.getElementById("experienceFields");
+    const sectionDiv = document.createElement("div");
+    sectionDiv.className = "dynamic-item";
+    sectionDiv.innerHTML = `
+        <label>Company Name:</label>
+        <input type="text" placeholder="Enter Company Name" required>
+        <label>Start Year:</label>
+        <input type="number" placeholder="Enter Start Year" required>
+        <label>End Year:</label>
+        <input type="number" placeholder="Enter End Year" required>
+        <label>Responsibilities:</label>
+        <textarea placeholder="Enter Responsibilities" rows="3" required></textarea>
+        <button type="button" class="remove-button">Remove</button>
+    `;
+    // Attach functionality to the remove button
+    sectionDiv.querySelector(".remove-button")?.addEventListener("click", () => {
+        sectionDiv.remove();
+    });
+    container.appendChild(sectionDiv);
 }
-function addSection(section) {
-    let container;
-    switch (section) {
-        case "education":
-            container = document.getElementById("education-container");
-            if (container) {
-                const educationGroup = document.createElement("div");
-                educationGroup.appendChild(createLabeledInput("Passing Year", "date", "passingYear"));
-                educationGroup.appendChild(createLabeledInput("Degree", "text", "degree"));
-                educationGroup.appendChild(createRemoveButton(educationGroup));
-                container.appendChild(educationGroup);
-            }
-            break;
-        case "skills":
-            container = document.getElementById("skills-container");
-            if (container) {
-                const skillGroup = document.createElement("div");
-                skillGroup.appendChild(createLabeledInput("Skill", "text", "skill"));
-                skillGroup.appendChild(createRemoveButton(skillGroup));
-                container.appendChild(skillGroup);
-            }
-            break;
-        case "languages":
-            container = document.getElementById("languages-container");
-            if (container) {
-                const languageGroup = document.createElement("div");
-                languageGroup.appendChild(createLabeledInput("Language", "text", "language"));
-                languageGroup.appendChild(createRemoveButton(languageGroup));
-                container.appendChild(languageGroup);
-            }
-            break;
-        case "experience":
-            container = document.getElementById("experience-container");
-            if (container) {
-                const experienceGroup = document.createElement("div");
-                experienceGroup.appendChild(createLabeledInput("Start Year", "date", "startYear"));
-                experienceGroup.appendChild(createLabeledInput("End Year", "date", "endYear"));
-                experienceGroup.appendChild(createLabeledInput("Company", "text", "company"));
-                experienceGroup.appendChild(createLabeledInput("Location", "text", "location"));
-                experienceGroup.appendChild(createLabeledInput("Job Title", "text", "jobTitle"));
-                experienceGroup.appendChild(createLabeledInput("Responsibilities", "text", "responsibilities"));
-                experienceGroup.appendChild(createRemoveButton(experienceGroup));
-                container.appendChild(experienceGroup);
-            }
-            break;
-        default:
-            console.error("Invalid section type");
+// Generic function to add a new dynamic field (e.g., for Languages or Skills)
+function addField(containerId, placeholder) {
+    const container = document.getElementById(containerId);
+    if (!container)
+        return;
+    const sectionDiv = document.createElement("div");
+    sectionDiv.className = "dynamic-item";
+    sectionDiv.innerHTML = `
+        <input type="text" placeholder="Enter ${placeholder}" required>
+        <button type="button" class="remove-button">Remove</button>
+    `;
+    // Attach functionality to the remove button
+    sectionDiv.querySelector(".remove-button")?.addEventListener("click", () => {
+        sectionDiv.remove();
+    });
+    container.appendChild(sectionDiv);
+}
+// Function to handle form submission, validate, and save to local storage
+function handleFormSubmit(event) {
+    event.preventDefault();
+    const formData = {
+        personalInfo: {
+            image: document.getElementById("userImage").value,
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            phone: document.getElementById("phone").value,
+            address: document.getElementById("address").value,
+        },
+        summary: document.getElementById("summary").value,
+        education: getFieldData("educationFields"),
+        experience: getFieldData("experienceFields"),
+        languages: getFieldData("languageFields"),
+        skills: getFieldData("skillsFields"),
+    };
+    // Validate form data
+    if (validateFormData(formData)) {
+        localStorage.setItem("cvData", JSON.stringify(formData)); // Save data to local storage
+        alert("Your CV is generating..."); // Notify user
+        window.location.href = "./cv-preview.html"; // Redirect to preview
     }
 }
-// this section is generated with chatgpt bcs in this i face lot of errors and i understand this section completely
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("button[onclick^='addSection']").forEach(button => {
-        button.addEventListener("click", (event) => {
-            const buttonElement = event.currentTarget;
-            const section = buttonElement.getAttribute("onclick")?.match(/'(.+?)'/)?.[1];
-            if (section) {
-                addSection(section);
-            }
-        });
-    });
-});
-//getting data from form
-function saveFormDataToLocalStorage() {
-    const formElement = document.getElementById("cv-form");
-    const formData = new FormData(formElement);
-    const data = {
-        personalInfo: {},
-        education: [],
-        skills: [],
-        languages: [],
-        experience: []
-    };
-    // Get personal information
-    data.personalInfo.name = formData.get("name");
-    data.personalInfo.designation = formData.get("designation");
-    data.personalInfo.phone = formData.get("phone");
-    data.personalInfo.email = formData.get("email");
-    data.personalInfo.address = formData.get("address");
-    // Get education data
-    const educationContainer = document.getElementById("education-container");
-    educationContainer?.querySelectorAll("div").forEach((group) => {
-        const educationData = {};
-        educationData.passingYear = group.querySelector("input[name='passingYear']")?.value;
-        educationData.degree = group.querySelector("input[name='degree']")?.value;
-        data.education.push(educationData);
-    });
-    // Get skills data
-    const skillsContainer = document.getElementById("skills-container");
-    skillsContainer?.querySelectorAll("input[name='skill']").forEach((input) => {
-        data.skills.push(input.value);
-    });
-    // Get languages data
-    const languagesContainer = document.getElementById("languages-container");
-    languagesContainer?.querySelectorAll("input[name='language']").forEach((input) => {
-        data.languages.push(input.value);
-    });
-    // Get experience data
-    const experienceContainer = document.getElementById("experience-container");
-    experienceContainer?.querySelectorAll("div").forEach((group) => {
-        const experienceData = {};
-        experienceData.startYear = group.querySelector("input[name='startYear']")?.value;
-        experienceData.endYear = group.querySelector("input[name='endYear']")?.value;
-        experienceData.company = group.querySelector("input[name='company']")?.value;
-        experienceData.location = group.querySelector("input[name='location']")?.value;
-        experienceData.jobTitle = group.querySelector("input[name='jobTitle']")?.value;
-        experienceData.responsibilities = group.querySelector("input[name='responsibilities']")?.value;
-        data.experience.push(experienceData);
-    });
-    // Save data to local storage
-    localStorage.setItem("cvFormData", JSON.stringify(data));
-    alert("CV data saved to local storage!");
+// Helper function to get data from a section
+function getFieldData(containerId) {
+    const container = document.getElementById(containerId);
+    return Array.from(container.querySelectorAll("input, textarea"))
+        .map((input) => input.value)
+        .filter((value) => value.trim() !== "");
 }
-function logFormDataFromLocalStorage() {
-    const storedData = localStorage.getItem("cvFormData");
-    if (storedData) {
-        const data = JSON.parse(storedData);
-        console.log("CV Data:", data);
+// Function to validate form data
+function validateFormData(data) {
+    const { personalInfo, summary, education, experience } = data;
+    if (!personalInfo.name || !personalInfo.email || !personalInfo.phone) {
+        alert("Please fill out all required personal information fields.");
+        return false;
+    }
+    if (summary.trim() === "") {
+        alert("Please enter a summary.");
+        return false;
+    }
+    if (education.length === 0) {
+        alert("Please add at least one entry for education.");
+        return false;
+    }
+    if (experience.length === 0) {
+        alert("Please add at least one entry for experience.");
+        return false;
+    }
+    return true;
+}
+function displaySavedData() {
+    const savedData = localStorage.getItem("cvData");
+    if (savedData) {
+        const parsedData = JSON.parse(savedData);
+        console.log("Retrieved CV Data from Local Storage:", parsedData);
     }
     else {
         console.log("No CV data found in local storage.");
     }
 }
-// Add event listener for form submission
-document.getElementById("cv-form")?.addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent form submission
-    const form = document.getElementById("cv-form");
-    if (form.reportValidity()) {
-        // Proceed only if all required fields are filled
-        saveFormDataToLocalStorage();
-        logFormDataFromLocalStorage();
-    }
-    else {
-        console.warn("Please complete all required fields.");
-    }
-});
 export {};
