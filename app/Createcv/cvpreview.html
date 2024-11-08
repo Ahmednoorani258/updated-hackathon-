@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generated CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./cvpreview.css">
+</head>
+<body>
+    <div class="cv-container">
+        <div class="cv-left-column">
+            <header class="cv-header">
+                <img id="cvImage" alt="User Image" />
+                <div class="cv-header-text">
+                    <h1 id="cvName"></h1>
+                    <p id="cvEmail"></p>
+                    <p id="cvPhone"></p>
+                    <p id="cvAddress"></p>
+                </div>
+            </header>
+
+            <section class="cv-section">
+                <h2>Skills</h2>
+                <div id="cvSkills"></div>
+            </section>
+
+            <section class="cv-section">
+                <h2>Languages</h2>
+                <div id="cvLanguages"></div>
+            </section>
+        </div>
+
+        <div class="cv-right-column">
+            <section class="cv-section">
+                <h2>Summary</h2>
+                <div id="cvSummary"></div>
+            </section>
+
+            <section class="cv-section">
+                <h2>Experience</h2>
+                <div id="cvExperience"></div>
+            </section>
+
+            <section class="cv-section">
+                <h2>Education</h2>
+                <div id="cvEducation"></div>
+            </section>
+        </div>
+    </div>
+    <script src="./cvpreview.js" type="module" defer></script>
+</body>
+</html>

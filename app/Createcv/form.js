@@ -72,25 +72,36 @@ function addField(containerId, placeholder) {
 // Function to handle form submission, validate, and save to local storage
 function handleFormSubmit(event) {
     event.preventDefault();
-    const formData = {
-        personalInfo: {
-            image: document.getElementById("userImage").value,
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            phone: document.getElementById("phone").value,
-            address: document.getElementById("address").value,
-        },
-        summary: document.getElementById("summary").value,
-        education: getFieldData("educationFields"),
-        experience: getFieldData("experienceFields"),
-        languages: getFieldData("languageFields"),
-        skills: getFieldData("skillsFields"),
+    const userImageInput = document.getElementById("userImage");
+    const reader = new FileReader();
+    reader.onload = () => {
+        const imageData = reader.result;
+        const formData = {
+            personalInfo: {
+                image: imageData,
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value,
+                address: document.getElementById("address").value,
+            },
+            summary: document.getElementById("summary").value,
+            education: getFieldData("educationFields"),
+            experience: getFieldData("experienceFields"),
+            languages: getFieldData("languageFields"),
+            skills: getFieldData("skillsFields"),
+        };
+        console.log("Form Data:", formData); // Check data structure
+        if (validateFormData(formData)) {
+            localStorage.setItem("cvData", JSON.stringify(formData));
+            alert("Your CV is generating...");
+            window.location.href = "./cvpreview.html";
+        }
     };
-    // Validate form data
-    if (validateFormData(formData)) {
-        localStorage.setItem("cvData", JSON.stringify(formData)); // Save data to local storage
-        alert("Your CV is generating..."); // Notify user
-        window.location.href = "./cv-preview.html"; // Redirect to preview
+    if (userImageInput.files && userImageInput.files[0]) {
+        reader.readAsDataURL(userImageInput.files[0]);
+    }
+    else {
+        alert("Please upload an image");
     }
 }
 // Helper function to get data from a section

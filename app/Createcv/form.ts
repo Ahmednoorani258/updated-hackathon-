@@ -105,30 +105,42 @@ function addField(containerId: string, placeholder: string): void {
 // Function to handle form submission, validate, and save to local storage
 function handleFormSubmit(event: Event): void {
     event.preventDefault();
+    const userImageInput = document.getElementById("userImage") as HTMLInputElement;
+    const reader = new FileReader();
 
-    const formData: FormData = {
-        personalInfo: {
-            image: (document.getElementById("userImage") as HTMLInputElement).value,
-            name: (document.getElementById("name") as HTMLInputElement).value,
-            email: (document.getElementById("email") as HTMLInputElement).value,
-            phone: (document.getElementById("phone") as HTMLInputElement).value,
-            address: (document.getElementById("address") as HTMLInputElement).value,
-        },
-        summary: (document.getElementById("summary") as HTMLTextAreaElement).value,
-        education: getFieldData("educationFields"),
-        experience: getFieldData("experienceFields"),
-        languages: getFieldData("languageFields"),
-        skills: getFieldData("skillsFields"),
+    reader.onload = () => {
+        const imageData = reader.result as string;
+
+        const formData: FormData = {
+            personalInfo: {
+                image: imageData,
+                name: (document.getElementById("name") as HTMLInputElement).value,
+                email: (document.getElementById("email") as HTMLInputElement).value,
+                phone: (document.getElementById("phone") as HTMLInputElement).value,
+                address: (document.getElementById("address") as HTMLInputElement).value,
+            },
+            summary: (document.getElementById("summary") as HTMLTextAreaElement).value,
+            education: getFieldData("educationFields"),
+            experience: getFieldData("experienceFields"),
+            languages: getFieldData("languageFields"),
+            skills: getFieldData("skillsFields"),
+        };
+
+        console.log("Form Data:", formData); // Check data structure
+
+        if (validateFormData(formData)) {
+            localStorage.setItem("cvData", JSON.stringify(formData));
+            alert("Your CV is generating...");
+            window.location.href = "./cvpreview.html";
+        }
     };
 
-    // Validate form data
-    if (validateFormData(formData)) {
-        localStorage.setItem("cvData", JSON.stringify(formData)); // Save data to local storage
-        alert("Your CV is generating..."); // Notify user
-        window.location.href = "./cv-preview.html"; // Redirect to preview
+    if (userImageInput.files && userImageInput.files[0]) {
+        reader.readAsDataURL(userImageInput.files[0]);
+    } else {
+        alert("Please upload an image");
     }
 }
-
 // Helper function to get data from a section
 function getFieldData(containerId: string): string[] {
     const container = document.getElementById(containerId) as HTMLElement;
