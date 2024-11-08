@@ -11,6 +11,7 @@
     color: #333;
     background-color: #f4f4f4;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -24,6 +25,7 @@
     background-color: #ffffff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     display: grid;
+    margin-top: 5%;
     grid-template-columns: 1fr 2fr;
     overflow: hidden;
     border-radius: 8px;
@@ -241,3 +243,110 @@
     }
   }
   
+  .toolsbar {
+    display: flex;
+    flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+    justify-content: space-between;
+    align-items: center;
+    background-color: #34495e;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    color: #bdc3c7;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Styling for buttons and selectors */
+  .toolsbar button,
+  .toolsbar select,
+  .toolsbar input[type="color"] {
+    background-color: #ecf0f1;
+    color: #34495e;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px; /* Add margin for spacing between elements */
+  }
+  
+  .toolsbar button:hover,
+  .toolsbar select:hover,
+  .toolsbar input[type="color"]:hover {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  /* For color input specifically */
+  .toolsbar input[type="color"] {
+    padding: 0;
+    width: 40px; /* Adjust width */
+    height: 40px; /* Adjust height */
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Flexbox for font and color selectors */
+  .font-selector, .color-selector {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+/* For larger screens, maintain row layout */
+@media screen and (min-width: 768px) {
+  .toolsbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px 40px; /* Increase padding for larger screens */
+  }
+
+  .toolsbar button,
+  .toolsbar select,
+  .toolsbar input[type="color"] {
+    width: auto;
+    margin-right: 10px;
+  }
+}
+
+/* For smaller screens, stack items vertically */
+@media screen and (max-width: 768px) {
+  .toolsbar {
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    align-items: flex-start;
+    gap: 10px; /* Add spacing between elements */
+  }
+
+  .toolsbar button,
+  .toolsbar select,
+  .toolsbar input[type="color"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .toolsbar button:last-child,
+  .toolsbar select:last-child,
+  .toolsbar input[type="color"]:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .toolsbar button,
+  .toolsbar select,
+  .toolsbar input[type="color"] {
+    padding: 10px 12px;
+    font-size: 12px; /* Adjust font size */
+  }
+}

@@ -8,6 +8,31 @@
     <link rel="stylesheet" href="./cvpreview.css">
 </head>
 <body>
+    <div class="toolsbar">
+        <!-- Button Tools -->
+        <button id="printCV">Print CV</button>
+        <button id="downloadPDF">Download PDF</button>
+        <button id="editCV">Edit CV</button>
+    
+        <!-- Font Selector -->
+        <div class="font-selector">
+            <label for="fontSelect">Fonts</label>
+            <select id="fontSelect">
+                <option value="Roboto">Roboto</option>
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Courier New">Courier New</option>
+            </select>
+        </div>
+    
+        <!-- Color Selector -->
+        <div class="color-selector">
+            <label for="colorSelect">Color</label>
+            <input type="color" id="colorSelect" value="#34495e">
+        </div>
+    </div>
+    
     <div class="cv-container">
         <div class="cv-left-column">
             <header class="cv-header">
