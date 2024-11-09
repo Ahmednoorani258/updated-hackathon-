@@ -198,6 +198,9 @@
       background-color: #34495e !important;
       color: #ecf0f1 !important;
     }
+    .toolsbar {
+      display: none;
+    }
   }
   
   /* Responsive Styles */

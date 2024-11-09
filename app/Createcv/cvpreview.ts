@@ -20,54 +20,42 @@ function loadCVData(): void {
 
     if (savedData) {
         const cvData: FormData = JSON.parse(savedData);
-        console.log("Retrieved CV Data:", cvData);
 
-        if (cvData && cvData.personalInfo) {
-            document.getElementById("cvName")!.textContent = cvData.personalInfo.name || "No name provided";
-            document.getElementById("cvEmail")!.textContent = cvData.personalInfo.email || "No email provided";
-            document.getElementById("cvPhone")!.textContent = cvData.personalInfo.phone || "No phone provided";
-            document.getElementById("cvAddress")!.textContent = cvData.personalInfo.address || "No address provided";
+        // Update Personal Information
+        const nameElement = document.getElementById("cvName") as HTMLElement;
+        const emailElement = document.getElementById("cvEmail") as HTMLElement;
+        const phoneElement = document.getElementById("cvPhone") as HTMLElement;
+        const addressElement = document.getElementById("cvAddress") as HTMLElement;
+        const imageElement = document.getElementById("cvImage") as HTMLImageElement;
 
-            document.getElementById("cvSummary")!.textContent = cvData.summary || "No summary provided";
+        nameElement.textContent = cvData.personalInfo.name;
+        emailElement.textContent = cvData.personalInfo.email;
+        phoneElement.textContent = cvData.personalInfo.phone;
+        addressElement.textContent = cvData.personalInfo.address;
+        imageElement.src = cvData.personalInfo.image;
 
-            const cvImage = document.getElementById("cvImage") as HTMLImageElement;
-            if (cvData.personalInfo.image) {
-                cvImage.src = cvData.personalInfo.image;
-                cvImage.alt = "User's uploaded image";
-            } else {
-                cvImage.alt = "No image provided";
-            }
+        // Update Summary
+        const summaryElement = document.getElementById("cvSummary") as HTMLElement;
+        summaryElement.textContent = cvData.summary;
 
-            const populateSection = (sectionId: string, data: string[]) => {
-                const container = document.getElementById(sectionId)!;
-                container.innerHTML = "";
-                data.forEach((item) => {
-                    const p = document.createElement("p");
-                    p.textContent = item;
-                    container.appendChild(p);
-                });
-            };
+        // Update Skills
+        const skillsContainer = document.getElementById("cvSkills") as HTMLElement;
+        skillsContainer.innerHTML = cvData.skills.map(skill => `<p>${skill}</p>`).join('');
 
-            populateSection("cvEducation", cvData.education);
-            populateSection("cvExperience", cvData.experience);
-            populateSection("cvLanguages", cvData.languages);
-            populateSection("cvSkills", cvData.skills);
-        } else {
-            console.log("cvData structure is incorrect or missing fields.");
-        }
-    } else {
-        console.log("No CV data found in local storage.");
+        // Update Languages
+        const languagesContainer = document.getElementById("cvLanguages") as HTMLElement;
+        languagesContainer.innerHTML = cvData.languages.map(language => `<p>${language}</p>`).join('');
+
+        // Update Experience
+        const experienceContainer = document.getElementById("cvExperience") as HTMLElement;
+        experienceContainer.innerHTML = cvData.experience.map(job => `<p>${job}</p>`).join('');
+
+        // Update Education
+        const educationContainer = document.getElementById("cvEducation") as HTMLElement;
+        educationContainer.innerHTML = cvData.education.map(edu => `<p>${edu}</p>`).join('');
     }
-
-    // Add scaling functionality for mobile devices
-    function setScale() {
-        const cvContainer = document.querySelector('.cv-container') as HTMLElement;
-        const scaleFactor = Math.min(1, window.innerWidth / 210);
-        cvContainer.style.setProperty('--scale-factor', scaleFactor.toString());
-    }
-
-    window.addEventListener('resize', setScale);
-    setScale();
 }
 
-document.addEventListener("DOMContentLoaded", loadCVData);
+document.addEventListener("DOMContentLoaded", () => {
+    loadCVData();
+});
