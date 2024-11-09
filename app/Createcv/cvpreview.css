@@ -1,4 +1,6 @@
 /* Reset and Base Styles */
+
+
 * {
     margin: 0;
     padding: 0;
@@ -249,13 +251,13 @@
   .toolsbar {
     display: flex;
     flex-wrap: wrap; /* Ensure items wrap on smaller screens */
-    justify-content: space-between;
+    justify-content: center;
+    margin: 0 500px;
     align-items: center;
     background-color: #34495e;
     padding: 10px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
     top: 0;
     z-index: 100;
     color: #bdc3c7;
