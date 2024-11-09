@@ -121,16 +121,22 @@ function updateFont(): void {
     document.body.style.fontFamily = fontSelect.value;
 }
 
-function updateColor(): void {
-    const colorSelect = document.getElementById("colorSelect") as HTMLInputElement;
-    document.documentElement.style.setProperty('--primary-color', colorSelect.value);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    loadCVData();
-    (document.getElementById("printCV") as HTMLButtonElement).addEventListener("click", printCV);
-    (document.getElementById("downloadPDF") as HTMLButtonElement).addEventListener("click", downloadPDF);
-    (document.getElementById("editCV") as HTMLButtonElement).addEventListener("click", toggleEditMode);
-    (document.getElementById("fontSelect") as HTMLSelectElement).addEventListener("change", updateFont);
-    (document.getElementById("colorSelect") as HTMLInputElement).addEventListener("input", updateColor);
-});
+function updateCSSVariables(color: string) {
+    document.documentElement.style.setProperty('--left-column-bg-color', color);
+  }
+  
+  // Wait for the DOM to fully load
+  document.addEventListener("DOMContentLoaded", () => {
+      loadCVData();
+      (document.getElementById("printCV") as HTMLButtonElement).addEventListener("click", printCV);
+      (document.getElementById("downloadPDF") as HTMLButtonElement).addEventListener("click", downloadPDF);
+      (document.getElementById("editCV") as HTMLButtonElement).addEventListener("click", toggleEditMode);
+      (document.getElementById("fontSelect") as HTMLSelectElement).addEventListener("change", updateFont);
+  
+      // Get the color picker input and listen for changes
+      const colorPicker = document.getElementById("colorSelect") as HTMLInputElement;
+      colorPicker.addEventListener("input", (event) => {
+        const selectedColor = (event.target as HTMLInputElement).value;
+        updateCSSVariables(selectedColor);
+      });
+  });

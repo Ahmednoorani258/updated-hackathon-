@@ -1,4 +1,6 @@
-/* Reset and Base Styles */
+:root {
+  --left-column-bg-color:  #34495e; /* Default color */
+}
 
 
 * {
@@ -35,7 +37,7 @@
   
   /* Left Column */
   .cv-left-column {
-    background-color: #34495e;
+    background-color: var(--left-column-bg-color);
     color: #ffffff;
     padding: 30px 20px;
     border-top-left-radius: 8px;
@@ -54,6 +56,8 @@
     margin-bottom: 30px;
   }
   
+
+
   #cvImage {
     width: 100px;
     height: 100px;
@@ -85,7 +89,7 @@
   .cv-section h2 {
     font-size: 18px;
     font-weight: 700;
-    border-bottom: 2px solid #3498db;
+    border-bottom: 2px solid var(--left-column-bg-color);
     padding-bottom: 5px;
     margin-bottom: 15px;
     color: #2c3e50;
@@ -147,7 +151,7 @@
     content: '•';
     position: absolute;
     left: 0;
-    color: #3498db;
+    color: var(--left-column-bg-color);
   }
   
   #cvExperience p:nth-child(3n+2)::before,
@@ -175,7 +179,7 @@
     content: '•';
     position: absolute;
     left: 0;
-    color: #3498db;
+    color: var(--left-column-bg-color);
   }
   
   /* Print Styles */
@@ -252,7 +256,7 @@
     display: flex;
     flex-wrap: wrap; /* Ensure items wrap on smaller screens */
     justify-content: center;
-    margin: 0 500px;
+    margin: 0 17rem;
     align-items: center;
     background-color: #34495e;
     padding: 10px 20px;
@@ -270,7 +274,7 @@
   .toolsbar select,
   .toolsbar input[type="color"] {
     background-color: #ecf0f1;
-    color: #34495e;
+    color:var(--left-column-bg-color);
     border: none;
     padding: 12px 18px;
     border-radius: 5px;

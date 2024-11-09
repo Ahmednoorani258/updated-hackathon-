@@ -91,16 +91,21 @@ function updateFont() {
     const fontSelect = document.getElementById("fontSelect");
     document.body.style.fontFamily = fontSelect.value;
 }
-function updateColor() {
-    const colorSelect = document.getElementById("colorSelect");
-    document.documentElement.style.setProperty('--primary-color', colorSelect.value);
+function updateCSSVariables(color) {
+    document.documentElement.style.setProperty('--left-column-bg-color', color);
 }
+// Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", () => {
     loadCVData();
     document.getElementById("printCV").addEventListener("click", printCV);
     document.getElementById("downloadPDF").addEventListener("click", downloadPDF);
     document.getElementById("editCV").addEventListener("click", toggleEditMode);
     document.getElementById("fontSelect").addEventListener("change", updateFont);
-    document.getElementById("colorSelect").addEventListener("input", updateColor);
+    // Get the color picker input and listen for changes
+    const colorPicker = document.getElementById("colorSelect");
+    colorPicker.addEventListener("input", (event) => {
+        const selectedColor = event.target.value;
+        updateCSSVariables(selectedColor);
+    });
 });
 export {};
