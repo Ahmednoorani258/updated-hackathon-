@@ -83,7 +83,7 @@ function saveCVData(): void {
 }
 
 function printCV(): void {
-    const toolbar = document.querySelector(".toolbar") as HTMLElement;
+    const toolbar = document.querySelector(".toolsbar") as HTMLElement;
     toolbar.style.display = "none";
     
     setTimeout(() => {

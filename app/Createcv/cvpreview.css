@@ -197,11 +197,11 @@
     }
   
     .cv-left-column {
-      background-color: #2c3e50 !important;
+      background-color: var(--left-column-bg-color) !important;
     }
   
     #cvSkills p, #cvLanguages p {
-      background-color: #34495e !important;
+      background-color:var(--left-column-bg-color)!important;
       color: #ecf0f1 !important;
     }
     .toolsbar {

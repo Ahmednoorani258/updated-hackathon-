@@ -56,7 +56,7 @@ function saveCVData() {
     localStorage.setItem("cvData", JSON.stringify(updatedData));
 }
 function printCV() {
-    const toolbar = document.querySelector(".toolbar");
+    const toolbar = document.querySelector(".toolsbar");
     toolbar.style.display = "none";
     setTimeout(() => {
         window.print();
