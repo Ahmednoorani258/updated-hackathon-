@@ -260,7 +260,7 @@ body {
 /* Navbar Responsive Display */
 @media (max-width: 768px) {
   .navlinks {
-    display: none;
+    display: none; /* Ensure it stays hidden initially */
     flex-direction: column;
     position: absolute;
     top: var(--nav-height);
@@ -273,9 +273,10 @@ body {
     overflow: hidden;
     max-height: 0;
   }
-
-  .navlinks.active {
+  
+  .navlinks.active { /* Toggle this class when the menu is open */
     display: flex;
+    max-height: 300px; /* Adjust based on content height */
   }
 
   .nav-toggle {

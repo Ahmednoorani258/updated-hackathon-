@@ -343,6 +343,10 @@
   .toolsbar input[type="color"]:last-child {
     margin-bottom: 0;
   }
+  .pdf-mode {
+    width: 800px; /* Or the width you use for desktop */
+    margin: 0 auto;
+}
 }
 
 @media screen and (max-width: 480px) {
